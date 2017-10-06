@@ -1,0 +1,97 @@
+package com.drools
+declare AlreadyProcessed
+end
+rule "Categoria A"
+salience 50
+
+    when
+    	not AlreadyProcessed();
+    	d : DTOInferirCategoria(porcentajeNoRequerido >= 0.85,
+					    		porcentajeNivel5 >= 0.8,
+					    		porcentajeNivel4 >= 0.75,
+					    		porcentajeNivel3 >= 0.7,
+					    		porcentajeNivel2 >= 0.65,
+					    		porcentajeNivel1 >= 0.6);
+    	
+    	r : DTOResultado();
+    then
+        //actions
+        r.setCategoria("A");
+        System.out.println("Bodega Categor�a: " + r.getCategoria());
+        insert( new AlreadyProcessed() );
+
+end
+rule "Categoria B"
+salience 40
+
+    when
+    	not AlreadyProcessed()
+    	d : DTOInferirCategoria(porcentajeNoRequerido >= 0.8,
+					    		porcentajeNivel5 >= 0.75,
+					    		porcentajeNivel4 >= 0.7, 
+					    		porcentajeNivel3 >= 0.65,
+					    		porcentajeNivel2 >= 0.6);
+    
+    	r : DTOResultado();
+    then
+        //actions
+        r.setCategoria("B");
+        System.out.println("Bodega Categor�a: " + r.getCategoria());
+        insert( new AlreadyProcessed() );
+
+end
+rule "Categoria C"
+salience 30
+
+    when
+    	not AlreadyProcessed()
+    	d : DTOInferirCategoria(porcentajeNoRequerido >= 0.75,
+					    		porcentajeNivel5 >= 0.7,
+					    		porcentajeNivel4 >= 0.65,
+					    		porcentajeNivel3 >= 0.6);
+    	
+    	r : DTOResultado();
+    then
+        //actions
+        r.setCategoria("C");
+        System.out.println("Bodega Categor�a: " + r.getCategoria());
+		insert( new AlreadyProcessed() );
+
+end
+
+rule "Categoria D"
+salience 20
+
+    when
+    	not AlreadyProcessed()
+    	d : DTOInferirCategoria(porcentajeNoRequerido >= 0.7,
+    							porcentajeNivel5 >= 0.65,
+    							porcentajeNivel4 >= 0.6);
+    	
+    	r : DTOResultado();
+    then
+        //actions
+        r.setCategoria("D");
+       
+        System.out.println("Bodega Categor�a: " + r.getCategoria());
+        
+        insert( new AlreadyProcessed() );
+end
+rule "Categoria E"
+salience 10
+
+    when
+    	not AlreadyProcessed()
+        d : DTOInferirCategoria(porcentajeNoRequerido >= 0.65,
+    							porcentajeNivel5 >= 0.6);
+    	
+    	r : DTOResultado();
+    then
+        //actions
+        r.setCategoria("E");
+        System.out.println("Bodega Categor�a: " + r.getCategoria());
+        insert( new AlreadyProcessed() );
+
+end
+
+
